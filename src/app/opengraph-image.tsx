@@ -41,7 +41,7 @@ export default function OpengraphImage() {
           {site.profile.name}
         </div>
         <div style={{ display: "flex", fontSize: 34, color: "#9aa0a6", marginTop: 28, maxWidth: 880 }}>
-          {site.profile.bio}
+          {site.profile.pillars.join(" · ")}
         </div>
       </div>
     ),

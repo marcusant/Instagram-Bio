@@ -171,6 +171,16 @@ body {
   color: var(--accent-ink);
 }
 
+/* Brand logo (e.g. Zumub): keeps the default chip at rest, but on hover it
+   lights up to a white tile (instead of the accent invert) so the brand color
+   stays legible — the icon "acende" like the others. */
+.link-button--brand:hover .link-button__icon,
+.link-button--brand:focus-visible .link-button__icon,
+.link-button--brand:active .link-button__icon {
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--surface-border);
+}
+
 .link-button__body {
   display: flex;
   flex-direction: column;

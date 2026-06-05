@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { ProfileConfig } from "@/types/site";
 
-/** Avatar + name + handle + bio. The name uses the display (condensed) font. */
+/** Avatar + handle + value pillars (three short phrases under the name). */
 export function ProfileHeader({ profile }: { profile: ProfileConfig }) {
   return (
     <header className="flex flex-col items-center text-center">
@@ -27,9 +27,21 @@ export function ProfileHeader({ profile }: { profile: ProfileConfig }) {
         @{profile.handle}
       </h1>
 
-      <p className="reveal reveal-2 mt-3 max-w-[22rem] text-balance text-sm leading-relaxed text-[var(--text-soft)]">
-        {profile.bio}
-      </p>
+      <ul className="reveal reveal-2 mt-3 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-sm leading-relaxed text-[var(--text-soft)]">
+        {profile.pillars.map((pillar, index) => (
+          <li
+            key={pillar}
+            className="flex items-center gap-x-2.5 whitespace-nowrap"
+          >
+            {index > 0 && (
+              <span aria-hidden className="text-[var(--accent)]">
+                ·
+              </span>
+            )}
+            {pillar}
+          </li>
+        ))}
+      </ul>
     </header>
   );
 }

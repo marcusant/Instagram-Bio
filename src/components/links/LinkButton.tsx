@@ -16,6 +16,9 @@ interface LinkButtonProps {
  */
 export function LinkButton({ link, index }: LinkButtonProps) {
   const href = withUtm(link.href, link.id);
+  // Brand logos (e.g. Zumub) keep their own color on a white tile instead of
+  // the monochrome-icon treatment that inverts to the accent on hover.
+  const isBrandIcon = link.icon === "zumub";
 
   return (
     <a
@@ -25,7 +28,7 @@ export function LinkButton({ link, index }: LinkButtonProps) {
         trackEvent(AnalyticsEvent.LinkClick, { id: link.id, featured: !!link.featured })
       }
       style={{ ["--i" as string]: index }}
-      className="link-button group reveal"
+      className={`link-button group reveal${isBrandIcon ? " link-button--brand" : ""}`}
     >
       <span className="link-button__icon" aria-hidden>
         <Icon name={link.icon ?? "link"} width={22} height={22} />

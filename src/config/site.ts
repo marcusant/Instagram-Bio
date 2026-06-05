@@ -17,7 +17,7 @@ export const site: SiteConfig = {
     name: "Marcus Santos",
     handle: "marcus.santosc",
     avatar: "/avatar.png",
-    bio: "Personal trainer · Método 40+ · Te ajudo a construir um corpo forte e saudável.",
+    pillars: ["Corpo ativo", "Mente clara", "Essência desperta"],
     verified: true,
   },
 
@@ -37,10 +37,10 @@ export const site: SiteConfig = {
     },
     {
       id: "cupom-marcusantos",
-      label: "MARCUSANTOS 10%",
-      subtitle: "Cupom de 10% de desconto",
+      label: "Zumub · 10% OFF",
+      subtitle: "Cupom MARCUSANTOS · suplementos",
       href: "http://zumu.be/marcusantos",
-      icon: "tag",
+      icon: "zumub",
       featured: true,
     },
     {

@@ -75,6 +75,15 @@ function Website(props: IconProps) {
   );
 }
 
+/** Zumub brand mark — the double "//" glyph in the Zumub blue. */
+function Zumub(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path fill="#2563eb" d="M10 5L13 5L8 19L5 19Z M16 5L19 5L14 19L11 19Z" />
+    </svg>
+  );
+}
+
 function LinkIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>
@@ -89,6 +98,7 @@ const REGISTRY: Record<IconKey, (props: IconProps) => React.JSX.Element> = {
   youtube: Youtube,
   whatsapp: Whatsapp,
   tag: Tag,
+  zumub: Zumub,
   play: Play,
   email: Email,
   website: Website,

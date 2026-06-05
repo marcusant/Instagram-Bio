@@ -17,7 +17,7 @@ export type SocialPlatform =
   | "website";
 
 /** Icon key rendered by the icon registry (`src/components/icons`). */
-export type IconKey = SocialPlatform | "link" | "tag" | "play";
+export type IconKey = SocialPlatform | "link" | "tag" | "zumub" | "play";
 
 export interface SocialLink {
   platform: SocialPlatform;
@@ -47,7 +47,8 @@ export interface ProfileConfig {
   handle: string;
   /** Path under /public, e.g. "/avatar.jpg". */
   avatar: string;
-  bio: string;
+  /** Short value phrases shown under the name (e.g. ["Corpo ativo", ...]). */
+  pillars: string[];
   verified?: boolean;
 }
 
