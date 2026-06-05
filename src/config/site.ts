@@ -70,7 +70,7 @@ export const site: SiteConfig = {
     description:
       "Links, treinos, cupons e contato do Marcus Santos. Personal trainer especialista no Método 40+.",
     // Ajuste para o domínio final na Vercel (sem barra no fim).
-    url: "https://bio-instagram.vercel.app",
+    url: "https://instagram-bio-teal.vercel.app",
   },
 };
 
