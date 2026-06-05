@@ -1,0 +1,310 @@
+@import "tailwindcss";
+
+/* next-themes toggles the `.dark` class on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — light is the base, .dark overrides.                 */
+/* Direction: dark athletic / fitness. Accent only carries meaning.    */
+/* ------------------------------------------------------------------ */
+:root {
+  --bg: oklch(97% 0.005 95);
+  /* Soft lavender wash at the top, fading "infinitely" into the off-white —
+     the light-mode echo of the dark-mode violet glow (same accent hue ~287). */
+  --bg-grad: oklch(91% 0.06 287);
+  --surface: oklch(100% 0 0 / 0.7);
+  --surface-solid: oklch(100% 0 0);
+  --surface-border: oklch(80% 0.01 95 / 0.8);
+
+  --text: oklch(20% 0.02 95);
+  --text-soft: oklch(38% 0.02 95);
+  --text-muted: oklch(55% 0.02 95);
+
+  --accent: oklch(56% 0.23 287);
+  --accent-ink: oklch(99% 0 0);
+  --accent-glow: oklch(56% 0.23 287 / 0.32);
+
+  --danger: oklch(58% 0.2 25);
+
+  --dur-fast: 150ms;
+  --dur-normal: 320ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Paleta TRINUS: violeta sobre quase-preto, glow roxo no topo. */
+.dark {
+  --bg: oklch(11% 0.014 285);
+  --bg-grad: oklch(34% 0.13 287);
+  --surface: oklch(100% 0 0 / 0.045);
+  --surface-solid: oklch(19% 0.025 285);
+  --surface-border: oklch(100% 0 0 / 0.09);
+
+  --text: oklch(98% 0.004 285);
+  --text-soft: oklch(82% 0.012 285);
+  --text-muted: oklch(62% 0.02 285);
+
+  --accent: oklch(63% 0.21 286);
+  --accent-ink: oklch(99% 0 0);
+  --accent-glow: oklch(63% 0.21 286 / 0.34);
+
+  --danger: oklch(70% 0.18 25);
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background:
+    radial-gradient(120% 80% at 50% -10%, var(--bg-grad), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* Screen-reader-only utility (used for hidden labels). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Link button                                                         */
+/* ------------------------------------------------------------------ */
+.link-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  width: 100%;
+  padding: 0.95rem 1.05rem;
+  border-radius: 1rem;
+  border: 1px solid var(--surface-border);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  transition:
+    transform var(--dur-normal) var(--ease),
+    border-color var(--dur-normal) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+/* Accent (lavender) wash that fades in when the button is selected. */
+.link-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    100deg,
+    color-mix(in oklch, var(--accent) 26%, transparent),
+    color-mix(in oklch, var(--accent) 6%, transparent) 55%,
+    transparent 80%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-normal) var(--ease);
+}
+
+/* Keep the icon / text / chevron above the accent wash. */
+.link-button > * {
+  position: relative;
+  z-index: 1;
+}
+
+.link-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--accent);
+}
+
+.link-button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.link-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Hover / focus / touch: reveal the accent wash and tint the border. */
+.link-button:hover::before,
+.link-button:focus-visible::before,
+.link-button:active::before {
+  opacity: 1;
+}
+
+.link-button__icon {
+  display: grid;
+  place-items: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  flex-shrink: 0;
+  border-radius: 0.7rem;
+  background: color-mix(in oklch, var(--text) 6%, transparent);
+  color: var(--text);
+  transition:
+    background-color var(--dur-normal) var(--ease),
+    color var(--dur-normal) var(--ease);
+}
+
+.link-button:hover .link-button__icon,
+.link-button:focus-visible .link-button__icon,
+.link-button:active .link-button__icon {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.link-button__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+}
+
+.link-button__label {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.15rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.link-button__subtitle {
+  margin-top: 0.15rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-button__chevron {
+  margin-left: auto;
+  color: var(--text-muted);
+  transition: transform var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.link-button:hover .link-button__chevron {
+  transform: translateX(3px);
+  color: var(--accent);
+}
+
+/* ------------------------------------------------------------------ */
+/* Social icon buttons — same lift + lavender wash as .link-button     */
+/* ------------------------------------------------------------------ */
+.social-button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 2.75rem;
+  width: 2.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--surface-border);
+  background: var(--surface);
+  color: var(--text-muted);
+  overflow: hidden;
+  transition:
+    transform var(--dur-normal) var(--ease),
+    border-color var(--dur-normal) var(--ease),
+    color var(--dur-normal) var(--ease);
+}
+
+/* Accent (lavender) wash that fades in on hover/focus. */
+.social-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--accent) 30%, transparent),
+    color-mix(in oklch, var(--accent) 8%, transparent) 60%,
+    transparent 85%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-normal) var(--ease);
+}
+
+/* Keep the icon above the accent wash. */
+.social-button > * {
+  position: relative;
+  z-index: 1;
+}
+
+.social-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.social-button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.social-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  color: var(--text);
+}
+
+.social-button:hover::before,
+.social-button:focus-visible::before {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Staggered reveal on load                                            */
+/* ------------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  /* Use the independent `translate` property (not `transform`) so the entrance
+     animation's forwards fill does not block the `transform`-based hover lift. */
+  translate: 0 12px;
+  animation: reveal-in var(--dur-normal) var(--ease) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms + 80ms);
+}
+
+.reveal-1 { animation-delay: 140ms; }
+.reveal-2 { animation-delay: 200ms; }
+.reveal-3 { animation-delay: 260ms; }
+
+@keyframes reveal-in {
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    translate: none;
+    animation: none;
+  }
+  .link-button,
+  .link-button::before,
+  .link-button__icon,
+  .link-button__chevron,
+  .social-button,
+  .social-button::before {
+    transition: none;
+  }
+}
